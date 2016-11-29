@@ -4,7 +4,7 @@
 <title>Cse5335</title>
 <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 
 </head>
@@ -20,22 +20,6 @@
   table tr:nth-child(even) {
     background-color: #ffffff;
   }
-  /* Reference : https://docs.angularjs.org/guide/animations */
-  animation.ng-enter, .animation.ng-leave {
-              -webkit-transition: 1s;
-          }
-          .animation.ng-enter {
-              opacity: 0;
-          }
-          .animation.ng-leave {
-              opacity: 1;
-          }
-          .animation.ng-enter.ng-enter-active {
-              opacity: 1;
-          }
-          .animation.ng-leave.ng-leave-active{
-              opacity: 0;
-          }
 </style>
 
 <body>
@@ -49,7 +33,7 @@
   </div>
 </nav>
 
-<h3 align = "center">CSE5335 Project-II</h1>
+<h3 align ="center">CSE5335 Project-II</h3>
 
 <div ng-app="myApp" ng-controller="myCtrl">
   <button  ng-click="getDetails()">Get Details!</button>
@@ -63,7 +47,8 @@
       <th>State</th>
       <th>Zip</th>
     </tr>
-    <tr ng-repeat="p in obj" class="animation">
+    <!-- Animation reference : https://daneden.github.io/animate.css/ -->
+    <tr ng-repeat="p in obj" class="animated wobble">
       <td>{{ p.id }}</td>
       <td>{{ p.first_name }}</td>
       <td>{{ p.last_name }}</td>
