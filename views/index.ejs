@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cse5335</title>
+<link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+
+</head>
+<style>
+  table, th , td  {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+  }
+  table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+  }
+  table tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+  /* Reference : https://docs.angularjs.org/guide/animations */
+  animation.ng-enter, .animation.ng-leave {
+              -webkit-transition: 1s;
+          }
+          .animation.ng-enter {
+              opacity: 0;
+          }
+          .animation.ng-leave {
+              opacity: 1;
+          }
+          .animation.ng-enter.ng-enter-active {
+              opacity: 1;
+          }
+          .animation.ng-leave.ng-leave-active{
+              opacity: 0;
+          }
+</style>
+
+<body>
+
+<!-- Nav Bar -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">CSE 5335</a>
+    </div>
+  </div>
+</nav>
+
+<h1>CSE5335 Project-II</h1>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+  <button  ng-click="getDetails()">Get Details!</button>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+    </tr>
+    <tr ng-repeat="p in obj" class="animation">
+      <td>{{ p.id }}</td>
+      <td>{{ p.first_name }}</td>
+      <td>{{ p.last_name }}</td>
+      <td>{{ p.address }}</td>
+      <td>{{ p.city }}</td>
+      <td>{{ p.state }}</td>
+      <td>{{ p.zip }}</td>
+    </tr>
+  </table>
+</div>
+
+
+<script>
+  var app = angular.module('myApp', ['ngAnimate']);
+  app.controller('myCtrl', function($scope, $http, $interval) {
+
+    $scope.count=1;
+    $scope.obj=[];
+
+    $scope.getDetails = function()
+    {
+      timer = $interval(function()
+      {
+        if($scope.count <= 100) {
+          $http.get("/get-user", {params: {"keyID": $scope.count}})
+                  .then(function (response) {
+                    $scope.obj.push(response.data);
+                  });
+
+          if ($scope.count >  20)
+            $scope.obj.shift();
+        }
+
+        $scope.count++;
+
+      },500);
+    };
+
+  });
+</script>
+
+</body>
+</html>
